@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <script>
+    	var islem = ["+","-","*","/"];															//operatörleri belirlemek için "islem" adında bi dizi oluşturdum
+    	var arr																					//input.split i aktarmak için arr değişkeni 
+        function insert(num) {																	//girdiler üzreerinde işlem yapabilmek için insert fonksiyonu
+       	var input = document.form.text.value;													//text çıktıları için document... i inputa aktardım
+            var islemEqual = false;																//boolean tipinde bi değişken 
+             if (input) {																		//input içinde işlem yapmak için if
+             	arr = input.split("");															//inputa uyguladığım methodu değişkene aktardım
+             		for (var i = 0; i < islem.length; i++) {									//klasik bir for döngüsü ile islem içindeki dizi indekslerine göre işlemesoktum
+             			if (islem[i] == num && islem.indexOf(arr[arr.length -1]) != -1) {		//islem num ve indexofa yani dizi içineki herhangi bir elemana eşit mi ?
+             				islemEqual = true;													//eşitse true gir
+             			}	
+             		}
+             		if (islemEqual) {															//true ise ife gir ve son elemanı boşa aktar ki daha fazla tıklanamasın
+             			arr[arr.length -1] = "";												//son elemanı "" boşa aktar yani operatörlerin tekrarlanmasını engelle
+    	    	}else {																			//eğer
+             		document.form.text.value = document.form.text.value + num;					// false olarak devam ediyorsa yani operatör değilse yazdır
+             		}
+            }else {
+              	document.form.text.value = document.form.text.value + num;
+              }
+        }
+        function equal() {																		//hesaplama fonksiyonu
+            var exp = document.form.text.value;													//çıktıyı expe aktar
+            if (exp){																			//eğer exp doluysa
+                document.form.text.value=eval(exp);												//girilen işlemi eval fonksiyonu sayesinde yap
+            }
+        }
+        function c() {																			//temizleme fonksiyonu
+            document.form.text.value="";														//eğer aktif edersen texti siler
+        }
+        function back() {																		//sil fonksiyonu
+            var exp = document.form.text.value;													
+            document.form.text.value = exp.substring(0,exp.length-1);							//substring kullanarak en son girilen değeri çıkart
+        }
+    </script>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .button{
+            width: 50px;
+            height: 50px;
+            font-size: 25px;
+            margin: 2px;
+            cursor: pointer;
+            background: #79848a;
+            border: none;
+            color: white;
+            border: 2px solid #616161;
+            border-radius: 100%;
+        }
+        .text{
+            width: 208px;
+            margin: 5px;
+            font-size: 25px;
+            padding: 5px;
+            border: none;
+            color: #698ea0;
+            border-radius: 10px;
+        }
+        .main{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%)translateY(-50%);
+        }
+        .bg{
+            background: linear-gradient(to right,#33e4dc,rgb(38,10,65));
+            height: 700px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <form class="main">
+
+        </form>
+    </div>
+    <div class="main">
+        <form name="form" action="">
+            <input class="text" name="text" type="text">
+        </form>
+        <table>
+            <tr>
+                <td><input class="button" type="button" value="C" onclick="c()"></td>
+                <td><input class="button" type="button" value="<" onclick="back()"></td>
+                <td><input class="button" type="button" value="/" onclick="insert('/')"></td>
+                <td><input class="button" type="button" value="*" onclick="insert('*')"></td>
+            </tr>
+            <tr>
+                <td><input class="button" type="button" value="7" onclick="insert(7)"></td>
+                <td><input class="button" type="button" value="8" onclick="insert(8)"></td>
+                <td><input class="button" type="button" value="9" onclick="insert(9)"></td>
+                <td><input class="button" type="button" value="-" onclick="insert('-')"></td>
+            </tr>
+            <tr>
+                <td><input class="button" type="button" value="4" onclick="insert(4)"></td>
+                <td><input class="button" type="button" value="5" onclick="insert(5)"></td>
+                <td><input class="button" type="button" value="6" onclick="insert(6)"></td>
+                <td><input class="button" type="button" value="+" onclick="insert('+')"></td>
+            </tr>
+            <tr>
+                <td> <input class="button" type="button" value="1" onclick="insert(1)"> </td>
+                <td> <input class="button" type="button" value="2" onclick="insert(2)"> </td>
+                <td> <input class="button" type="button" value="3" onclick="insert(3)"></td>
+                <td rowspan="2"> <input class="button" style="height: 106px" type="button" value="=" onclick="equal('=')"></td>
+            </tr>
+            <tr>
+                <td colspan="2"> <input class="button" style="width: 106px" type="button" value="0" onclick="insert(0)"> </td>
+                <td> <input class="button" type="button" value="." onclick="insert('.')"> </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
